@@ -83,31 +83,37 @@ ExternalProject_Add(ISPC
 )
 set(CHAIN ISPC)
 
-ExternalProject_Add(TBB
-    URL https://github.com/oneapi-src/oneTBB/archive/2020_U2.tar.gz
-    BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ${MAKE}
-    INSTALL_COMMAND bash -c "cp build/*_release/libtbb*.* ${InstallRoot}/lib"
-            COMMAND bash -c "cp -r include/tbb ${InstallRoot}/include"
-    DEPENDS ${CHAIN}
-)
 
-ExternalProject_Add(OpenVDB
-    GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb
-    GIT_TAG v9.1.0
-    INSTALL_DIR ${InstallRoot}
-    CMAKE_ARGS
-      -DOPENVDB_CORE_SHARED=OFF
-      -DCMAKE_CXX_STANDARD=17
-      -DTBB_LIBRARYDIR=${CMAKE_PREFIX_PATH}/lib
-      -DCMAKE_BUILD_TYPE=Release
-      -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
-      -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-      -DBLOSC_ROOT=/usr
-    DEPENDS TBB
-)
-set(CHAIN OpenVDB)
+# We'll use a variable for TBB and OpenVDB
+# to avoid heavy recompilations due to using cp * instead 
+set(TBB )
+set(OpenVDB )
+
+# ExternalProject_Add(TBB
+#     URL https://github.com/oneapi-src/oneTBB/archive/2020_U2.tar.gz
+#     BUILD_IN_SOURCE 1
+#     CONFIGURE_COMMAND ""
+#     BUILD_COMMAND ${MAKE}
+#     INSTALL_COMMAND bash -c "cp build/*_release/libtbb*.* ${InstallRoot}/lib"
+#             COMMAND bash -c "cp -r include/tbb ${InstallRoot}/include"
+#     DEPENDS ${CHAIN}
+# )
+# set(TBB TBB)
+# ExternalProject_Add(OpenVDB
+#     GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb
+#     GIT_TAG v9.1.0
+#     INSTALL_DIR ${InstallRoot}
+#     CMAKE_ARGS
+#       -DCMAKE_BUILD_TYPE=Release
+#       -DCMAKE_CXX_STANDARD=17
+#       -DOPENVDB_CORE_STATIC=OFF
+#       -DTBB_LIBRARYDIR=${CMAKE_PREFIX_PATH}/lib
+#       -DCMAKE_BUILD_TYPE=Release
+#       -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
+#       -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+#       -DBLOSC_ROOT=/usr
+#     DEPENDS ${TBB}
+# )
 
 ExternalProject_Add(embree
     GIT_REPOSITORY https://github.com/embree/embree
@@ -125,7 +131,7 @@ ExternalProject_Add(embree
         -DEMBREE_MAX_ISA=AVX512
         -DEMBREE_TUTORIALS=OFF
         -DBUILD_SHARED_LIBS=ON
-    DEPENDS TBB
+    DEPENDS ${TBB}
 )
 
 ExternalProject_Add(OpenColorIO
@@ -153,9 +159,11 @@ ExternalProject_Add(OpenImageIO
         -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
         -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
 	-DBUILD_TESTING=OFF
+	-DOIIO_BUILD_TESTS=OFF
+	-DOIIO_BUILD_TOOLS=OFF
         -DUSE_QT=0
         -DUSE_PYTHON=0
-    DEPENDS OpenColorIO OpenVDB
+    DEPENDS OpenColorIO ${OpenVDB}
 )
 
 ExternalProject_Add(OpenImageDenoise
@@ -170,7 +178,7 @@ ExternalProject_Add(OpenImageDenoise
         -DTBB_DIR=<INSTALL_DIR>
         -DTBB_ROOT=<INSTALL_DIR>
         -DOIDN_APPS=OFF
-    DEPENDS TBB
+    DEPENDS ${TBB}
 )
 set(CHAIN OpenImageDenoise)
 
@@ -195,17 +203,21 @@ ExternalProject_Add(USD
         -DPYTHON_INCLUDE_DIRS=/usr/include
         -DBoost_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu
         -DBoost_INCLUDE_DIR=/usr/include
+	
         -DPXR_BUILD_TESTS=OFF
         -DPXR_BUILD_EXAMPLES=OFF
         -DPXR_BUILD_TUTORIALS=OFF
         -DPXR_BUILD_USD_TOOLS=OFF
         -DPXR_ENABLE_PTEX_SUPPORT=OFF
         -DPXR_ENABLE_OPENVDB_SUPPORT=OFF  # Should this be on?
-        -DPXR_BUILD_USDVIEW=OFF
+        -DPXR_BUILD_USDVIEW=OFF           # Set this to off later on
+	-DPXR_BUILD_EMBREE_PLUGIN=ON      # Set this to off later on
+	-DEMBREE_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/install/embree3/include
+	-DEMBREE_LIBRARY=${CMAKE_INSTALL_PREFIX}/install/embree3/lib
         -DBoost_NO_BOOST_CMAKE=ON
         -DBoost_NO_SYSTEM_PATHS=ON
         -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1
-    DEPENDS TBB OpenVDB
+    DEPENDS ${TBB} ${OpenVDB}
 )
 set(CHAIN USD)
 

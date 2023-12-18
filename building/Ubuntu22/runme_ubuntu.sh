@@ -10,15 +10,13 @@
 # $BUILD/compile.log to check for errors.
 #
 
-PROCS=$(nproc)
-
 source install_variables.sh
 
 if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
     source $START/install_packages.sh
 fi
 
-source $START/runme_dependencies.sh
+# source $START/runme_dependencies.sh
 
 #
 # @todo: Automate download and Install Optix (user needs to be registered with
@@ -31,7 +29,4 @@ source $START/runme_dependencies.sh
 #
 # Build moonray
 #
-# cd $BUILD_MOONRAY
-# rm -rf *
-# cmake $SOURCE -DPYTHON_EXECUTABLE=python3 -DBOOST_PYTHON_COMPONENT_NAME=python310 -DABI_VERSION=0
-# cmake --build . -j $PROCS
+source $START/runme_moonray.sh
