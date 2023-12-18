@@ -1,18 +1,6 @@
 # Copyright 2023 DreamWorks Animation LLC
 # SPDX-License-Identifier: Apache-2.0
 
-
-# Install Ubuntu 22.04 packages for building MoonRay
-# source this script in bash
-
-ROOT=../../
-cd $ROOT
-
-export SOURCE=$PWD                         # source directory
-export BUILD=$PWD/build                    # build directory
-export BUILD_INSTALL=$PWD/install          # dependencies install
-export INSTALL=$PWD/install                # final install
-
 #
 # Create directories
 #
@@ -20,7 +8,7 @@ mkdir -p $BUILD_INSTALL
 mkdir -p $INSTALL/{bin,lib,include}
 
 
-if [[ -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
+if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
     cd $INSTALL
     wget https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz
     tar xzf cmake-3.23.1-linux-x86_64.tar.gz
@@ -77,7 +65,7 @@ sudo apt -y install libboost-atomic-dev \
 sudo apt -y install lua5.4 liblua5.4-dev #5.4.4
 
 # These two are newer than what moonray expects, so we build from source
-# sudo apt -y install libopenvdb-dev # Installs libtbb-dev
+# sudo apt -y install libopenvdb-dev # On ubuntu, this installs old libtbb-dev
 
 # libtbb is a mess, as it conflicts and some dependencies of moonray expect
 # libtbb-dev while others require libtbb2-dev
