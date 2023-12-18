@@ -4,6 +4,9 @@
 
 source install_variables.sh
 
+cp $SOURCE/building/patches/moonray/hydra/hdMoonray/src/RendererPlugin.cc \
+   $SOURCE/moonray/hydra/hdMoonray/src/RendererPlugin.cc
+
 #
 # Build moonray
 #
