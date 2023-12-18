@@ -78,7 +78,7 @@ ExternalProject_Add(ISPC
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND cp bin/ispc ${InstallRoot}/bin
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_if_different bin/ispc ${InstallRoot}/bin
     DEPENDS ${CHAIN}
 )
 set(CHAIN ISPC)
@@ -144,7 +144,7 @@ set(CHAIN OpenColorIO)
 ExternalProject_Add(OpenImageIO
     GIT_REPOSITORY https://github.com/OpenImageIO/oiio
     GIT_TAG 331a323468928c8017ad048b26d47c4e57a724a7 # 2.3.20.0
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/OpenImageIO/FindJPEGTurbo.cmake ${THIS_DIR}/../../build/OpenImageIO-prefix/src/OpenImageIO/src/cmake/modules/
+    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/OpenImageIO/FindJPEGTurbo.cmake ${THIS_DIR}/../../BUILD/OpenImageIO-prefix/src/OpenImageIO/src/cmake/modules/
     INSTALL_DIR ${InstallRoot}
     CMAKE_ARGS
         -DCMAKE_BUILD_TYPE=Release
@@ -177,7 +177,7 @@ set(CHAIN OpenImageDenoise)
 ExternalProject_Add(USD
     GIT_REPOSITORY https://github.com/PixarAnimationStudios/USD
     GIT_TAG v23.11  # same as mrv2
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/USD/FindTBB.cmake ${THIS_DIR}/../../build/USD-prefix/src/USD/cmake/modules/
+    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/USD/FindTBB.cmake ${THIS_DIR}/../../BUILD/USD-prefix/src/USD/cmake/modules/
     INSTALL_DIR ${InstallRoot}
     CMAKE_ARGS
 	-DCMAKE_VERBOSE_MAKEFILE=ON

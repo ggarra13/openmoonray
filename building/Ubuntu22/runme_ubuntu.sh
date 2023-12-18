@@ -10,7 +10,7 @@
 # $BUILD/compile.log to check for errors.
 #
 
-PROCS=1 # $(nproc)
+PROCS=$(nproc)
 
 source install_variables.sh
 
@@ -18,11 +18,7 @@ if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
     source $START/install_packages.sh
 fi
 
-mkdir -p $BUILD
-cd $BUILD
-cmake $SOURCE/building/Ubuntu22 -D CMAKE_INSTALL_PREFIX=$BUILD_INSTALL
-cmake --build . -- -j $PROCS 2>&1 | tee compile.log
-cd $SOURCE
+source $START/runme_dependencies.sh
 
 #
 # @todo: Automate download and Install Optix (user needs to be registered with
