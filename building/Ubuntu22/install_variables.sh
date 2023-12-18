@@ -4,8 +4,17 @@
 # Source this file to set variables
 #
 
-export START=$PWD
 export PROCS=$(nproc)
+
+for i in $@; do
+    case $i in
+	-j)
+	    shift
+	    export PROCS=$1
+	    break
+    esac
+done
+export START=$PWD
 
 ROOT=../../
 cd $ROOT
