@@ -26,6 +26,6 @@ export BUILD_MOONRAY=$PWD/BUILD_moonray    # build moonray directory
 export INSTALL=$PWD/install                # final install
 
 echo "BUILD=$BUILD"
-echo "DEPS_INSTALL=$BUILD_INSTALL"
+echo "BUILD_INSTALL (deps)=$BUILD_INSTALL"
 echo "BUILD_MOONRAY=$BUILD_MOONRAY"
 echo "INSTALL=$INSTALL"

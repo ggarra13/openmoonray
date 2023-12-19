@@ -89,31 +89,32 @@ set(CHAIN ISPC)
 set(TBB )
 set(OpenVDB )
 
-# ExternalProject_Add(TBB
-#     URL https://github.com/oneapi-src/oneTBB/archive/2020_U2.tar.gz
-#     BUILD_IN_SOURCE 1
-#     CONFIGURE_COMMAND ""
-#     BUILD_COMMAND ${MAKE}
-#     INSTALL_COMMAND bash -c "cp build/*_release/libtbb*.* ${InstallRoot}/lib"
-#             COMMAND bash -c "cp -r include/tbb ${InstallRoot}/include"
-#     DEPENDS ${CHAIN}
-# )
-# set(TBB TBB)
-# ExternalProject_Add(OpenVDB
-#     GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb
-#     GIT_TAG v9.1.0
-#     INSTALL_DIR ${InstallRoot}
-#     CMAKE_ARGS
-#       -DCMAKE_BUILD_TYPE=Release
-#       -DCMAKE_CXX_STANDARD=17
-#       -DOPENVDB_CORE_STATIC=OFF
-#       -DTBB_LIBRARYDIR=${CMAKE_PREFIX_PATH}/lib
-#       -DCMAKE_BUILD_TYPE=Release
-#       -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
-#       -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-#       -DBLOSC_ROOT=/usr
-#     DEPENDS ${TBB}
-# )
+ExternalProject_Add(TBB
+    URL https://github.com/oneapi-src/oneTBB/archive/2020_U2.tar.gz
+    BUILD_IN_SOURCE 1
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ${MAKE}
+    INSTALL_COMMAND bash -c "cp build/*_release/libtbb*.* ${InstallRoot}/lib"
+            COMMAND bash -c "cp -r include/tbb ${InstallRoot}/include"
+    DEPENDS ${CHAIN}
+)
+
+set(TBB TBB)
+ExternalProject_Add(OpenVDB
+    GIT_REPOSITORY https://github.com/AcademySoftwareFoundation/openvdb
+    GIT_TAG v9.1.0
+    INSTALL_DIR ${InstallRoot}
+    CMAKE_ARGS
+      -DCMAKE_BUILD_TYPE=Release
+      -DCMAKE_CXX_STANDARD=17
+      -DOPENVDB_CORE_STATIC=OFF
+      -DTBB_LIBRARYDIR=${CMAKE_PREFIX_PATH}/lib
+      -DCMAKE_BUILD_TYPE=Release
+      -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
+      -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+      -DBLOSC_ROOT=/usr
+    DEPENDS ${TBB}
+)
 
 ExternalProject_Add(embree
     GIT_REPOSITORY https://github.com/embree/embree
@@ -212,8 +213,8 @@ ExternalProject_Add(USD
         -DPXR_ENABLE_OPENVDB_SUPPORT=OFF  # Should this be on?
         -DPXR_BUILD_USDVIEW=OFF           # Set this to off later on
 	-DPXR_BUILD_EMBREE_PLUGIN=ON      # Set this to off later on
-	-DEMBREE_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/install/embree3/include
-	-DEMBREE_LIBRARY=${CMAKE_INSTALL_PREFIX}/install/embree3/lib
+	-DEMBREE_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/embree3/include
+	-DEMBREE_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib/libembree3.so
         -DBoost_NO_BOOST_CMAKE=ON
         -DBoost_NO_SYSTEM_PATHS=ON
         -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1
