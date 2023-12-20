@@ -12,9 +12,9 @@ if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
     cd $INSTALL
     wget https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz
     tar xzf cmake-3.23.1-linux-x86_64.tar.gz
-    export PATH=$INSTALL/cmake-3.23.1-linux-x86_64/bin:${PATH}
-    cd $SOURCE
 fi
+
+cd $SOURCE
 
 
 
