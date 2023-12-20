@@ -8,10 +8,10 @@ mkdir -p $BUILD_INSTALL
 mkdir -p $INSTALL/{bin,lib,include}
 
 
-if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
+if [[ ! -d $INSTALL/cmake-3.26.2-linux-x86_64/bin ]]; then
     cd $INSTALL
-    wget https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz
-    tar xzf cmake-3.23.1-linux-x86_64.tar.gz
+    wget https://github.com/Kitware/CMake/releases/download/v3.26.2/cmake-3.26.2-linux-x86_64.tar.gz
+    tar xzf cmake-3.26.2-linux-x86_64.tar.gz
 fi
 
 cd $SOURCE
