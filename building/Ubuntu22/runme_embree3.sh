@@ -1,7 +1,8 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 source install_variables.sh
 
+mkdir -p $BUILD
 cd $BUILD
 git clone https://github.com/embree/embree embree3 --branch v3.0.0
 cd embree3

@@ -12,12 +12,13 @@
 
 source install_variables.sh
 
+cd $START
 if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
-    source $START/install_packages.sh
+    source install_packages.sh
 fi
 
-source $START/runme_embree3.sh
-source $START/runme_dependencies.sh
+source runme_embree3.sh
+source runme_dependencies.sh
 
 #
 # @todo: Automate download and Install Optix (user needs to be registered with
@@ -30,4 +31,5 @@ source $START/runme_dependencies.sh
 #
 # Build moonray
 #
-source $START/runme_moonray.sh
+cd $START
+source runme_moonray.sh

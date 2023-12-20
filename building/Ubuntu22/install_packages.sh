@@ -82,3 +82,5 @@ then
     sudo apt -y install qtbase5-dev libqt5script5  # should be -dev
 fi
 
+cd $START
+

@@ -185,8 +185,8 @@ set(CHAIN OpenImageDenoise)
 
 ExternalProject_Add(USD
     GIT_REPOSITORY https://github.com/PixarAnimationStudios/USD
-    GIT_TAG v23.11  # same as mrv2
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/USD/FindTBB.cmake ${THIS_DIR}/../../BUILD/USD-prefix/src/USD/cmake/modules/
+    GIT_TAG  v22.11       # v23.11  # same as mrv2
+    #PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/USD/FindTBB.cmake ${THIS_DIR}/../../BUILD/USD-prefix/src/USD/cmake/modules/
     INSTALL_DIR ${InstallRoot}
     CMAKE_ARGS
 	-DCMAKE_VERBOSE_MAKEFILE=ON
@@ -211,10 +211,10 @@ ExternalProject_Add(USD
         -DPXR_BUILD_USD_TOOLS=OFF
         -DPXR_ENABLE_PTEX_SUPPORT=OFF
         -DPXR_ENABLE_OPENVDB_SUPPORT=OFF  # Should this be on?
-        -DPXR_BUILD_USDVIEW=OFF           # Set this to off later on
-	-DPXR_BUILD_EMBREE_PLUGIN=ON      # Set this to off later on
-	-DEMBREE_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/embree3/include
-	-DEMBREE_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib/libembree3.so
+        -DPXR_BUILD_USDVIEW=ON           # Set this to off later on
+	#-DPXR_BUILD_EMBREE_PLUGIN=OFF     # Set this to off later on
+	#-DEMBREE_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/embree3/include
+	#-DEMBREE_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib/libembree3.so
         -DBoost_NO_BOOST_CMAKE=ON
         -DBoost_NO_SYSTEM_PATHS=ON
         -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1

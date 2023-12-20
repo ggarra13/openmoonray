@@ -4,13 +4,14 @@
 
 source install_variables.sh
 
-cp $SOURCE/building/patches/moonray/hydra/hdMoonray/src/RendererPlugin.cc \
-   $SOURCE/moonray/hydra/hdMoonray/src/RendererPlugin.cc
+# cp $SOURCE/building/patches/moonray/hydra/hdMoonray/src/RendererPlugin.cc \
+#    $SOURCE/moonray/hydra/hdMoonray/src/RendererPlugin.cc
 
 #
 # Build moonray
 #
+rm -rf $BUILD_MOONRAY
 mkdir -p $BUILD_MOONRAY
 cd $BUILD_MOONRAY
-cmake $SOURCE -DPYTHON_EXECUTABLE=python3 -DBOOST_PYTHON_COMPONENT_NAME=python310 -DABI_VERSION=0 -D CMAKE_PREFIX_PATH=$BUILD_INSTALL -D CMAKE_INSTALL_PREFIX=$INSTALL -D CUDAToolkit_INCLUDE_DIR=/usr/include -D Mkl_INCLUDE_DIR=/usr
+cmake $SOURCE -DPYTHON_EXECUTABLE=python3 -DBOOST_PYTHON_COMPONENT_NAME=python310 -DABI_VERSION=0 -D CMAKE_PREFIX_PATH=$BUILD_INSTALL -D CMAKE_INSTALL_PREFIX=$INSTALL -D CMAKE_ISPC_COMPILER=${BUILD_INSTALL} -D CUDAToolkit_INCLUDE_DIR=/usr/include -D Mkl_INCLUDE_DIR=/usr 
 cmake --build . -j $PROCS
