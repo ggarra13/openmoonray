@@ -2,7 +2,7 @@
 
 source install_variables.sh
 
-export LD_LIBRARY_PATH=/home/gga/Qt/6.6.1/gcc_64/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/gga/Qt5/5.15.2/gcc_64/lib:$LD_LIBRARY_PATH
 
 mkdir -p $BUILD
 cd $BUILD

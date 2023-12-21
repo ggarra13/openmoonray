@@ -4,7 +4,7 @@
 	branch = main
 [submodule "arras/arras4_core"]
 	path = arras/arras4_core
-	url = ../arras4_core
+	url = git@github.com:ggarra13/arras4_core
 	branch = main
 [submodule "moonray/scene_rdl2"]
 	path = moonray/scene_rdl2

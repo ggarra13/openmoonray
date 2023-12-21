@@ -1,6 +1,11 @@
 #!/bin/env bash
 
 #
+# Turn on exit on error
+#
+#set -o pipefail -e
+
+#
 # Source this file to set variables
 #
 export PROCS=$(nproc)

@@ -144,6 +144,12 @@ ExternalProject_Add(OpenColorIO
         -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=ON
         -DOCIO_BUILD_STATIC=OFF
+	-DOCIO_BUILD_APPS=OFF
+	-DOCIO_BUILD_GPU_TESTS=OFF
+	-DOCIO_BUILD_PYTHON=OFF
+	-DOCIO_BUILD_TESTS=OFF
+	-DOPENIMAGEIO_INCLUDE_DIR=<INSTALL_DIR>/include
+	-DOPENIMAGEIO_LIBRARY=<INSTALL_DIR>/lib/libOpenImageIO.so
         -DCMAKE_CXX_STANDARD=17
 )
 set(CHAIN OpenColorIO)
@@ -185,7 +191,7 @@ set(CHAIN OpenImageDenoise)
 
 ExternalProject_Add(USD
     GIT_REPOSITORY https://github.com/PixarAnimationStudios/USD
-    GIT_TAG  v22.11       # v23.11  # same as mrv2
+    GIT_TAG  v23.11  # same as mrv2   # v22.11
     INSTALL_DIR ${InstallRoot}
     CMAKE_ARGS
 	-DCMAKE_VERBOSE_MAKEFILE=ON
