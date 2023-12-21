@@ -12,7 +12,7 @@ Start with reading the [general build instructions](../general_build). This docu
 To clone the source from the github repo (on the host), use this git command:
 
 ```bash
-git clone --recurse-submodules https://github.com/dreamworksanimation/openmoonray.git
+git clone --recurse-submodules https://github.com/ggarra13/openmoonray.git
 ```
 You can place the clone anywhere : the rest of this document assumes it is in */source*, so change any reference to */source* to your chosen location.
 

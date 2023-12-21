@@ -186,7 +186,6 @@ set(CHAIN OpenImageDenoise)
 ExternalProject_Add(USD
     GIT_REPOSITORY https://github.com/PixarAnimationStudios/USD
     GIT_TAG  v22.11       # v23.11  # same as mrv2
-    #PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${THIS_DIR}/patches/USD/FindTBB.cmake ${THIS_DIR}/../../BUILD/USD-prefix/src/USD/cmake/modules/
     INSTALL_DIR ${InstallRoot}
     CMAKE_ARGS
 	-DCMAKE_VERBOSE_MAKEFILE=ON

@@ -20,12 +20,16 @@ export REZ_MOONRAY_ROOT=${rel_root}
 # tell Arras where to find session files
 export ARRAS_SESSION_PATH=${rel_root}/sessions
 
+# Set up library paths
+export LD_LIBRARY_PATH=${rel_root}/lib:${rel_root}/../lib:${LD_LIBRARY_PATH}
+
 # tell Hydra Ndr plugins where to find shader descriptions
 export MOONRAY_CLASS_PATH=${rel_root}/shader_json
 
 # add Hydra plugins to path
 export PXR_PLUGIN_PATH=${rel_root}/plugin/usd:${PXR_PLUGIN_PATH}
 export PXR_PLUGINPATH_NAME=${rel_root}/plugin/usd:${PXR_PLUGINPATH_NAME}
+export PYTHONPATH=${rel_root}/../lib/python:${PYTHONPATH}
 
 # create shader descriptions if they don't exist
 if [ ! -d "${rel_root}/shader_json" ]
@@ -34,3 +38,6 @@ then
     ${rel_root}/bin/rdl2_json_exporter --out ${rel_root}/shader_json/ --sparse
     echo "...done"
 fi
+
+echo "PYTHONPATH=${PYTHONPATH}"
+echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"

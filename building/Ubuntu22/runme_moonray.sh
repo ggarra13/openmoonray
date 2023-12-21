@@ -14,3 +14,7 @@ mkdir -p $BUILD_MOONRAY
 cd $BUILD_MOONRAY
 cmake $SOURCE -DPYTHON_EXECUTABLE=python3 -DBOOST_PYTHON_COMPONENT_NAME=python310 -DABI_VERSION=0 -D CMAKE_PREFIX_PATH=$BUILD_INSTALL -D CMAKE_INSTALL_PREFIX=$INSTALL -D CMAKE_ISPC_COMPILER=${BUILD_INSTALL}/bin/ispc -D CUDAToolkit_INCLUDE_DIR=/usr/include -D Mkl_INCLUDE_DIR=/usr 
 cmake --build . -j $PROCS
+cmake --install $BUILD_MOONRAY --prefix $INSTALL/openmoonray
+
+export LD_LIBRARY_PATH=$INSTALL/openmoonray/lib:$INSTALL/lib:$LD_LIBRARY_PATH
+source $INSTALL/openmoonray/scripts/setup.sh

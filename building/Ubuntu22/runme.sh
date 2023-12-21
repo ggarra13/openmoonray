@@ -17,7 +17,8 @@ if [[ ! -d $INSTALL/cmake-3.23.1-linux-x86_64/bin ]]; then
     source install_packages.sh
 fi
 
-source runme_embree3.sh
+#source runme_embree3.sh
+
 source runme_dependencies.sh
 
 #

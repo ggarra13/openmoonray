@@ -24,6 +24,7 @@ export BUILD_INSTALL=$PWD/install          # dependencies install
 export BUILD_MOONRAY=$PWD/BUILD_moonray    # build moonray directory
 export INSTALL=$PWD/install                # final install
 export PATH=$INSTALL/cmake-3.26.2-linux-x86_64/bin:$INSTALL/bin:${PATH}
+export PYTHONPATH=$INSTALL/lib/python:${PYTHONPATH}
 
 which cmake
 echo "BUILD=$BUILD"
@@ -31,4 +32,5 @@ echo "BUILD_INSTALL (deps)=$BUILD_INSTALL"
 echo "BUILD_MOONRAY=$BUILD_MOONRAY"
 echo "INSTALL=$INSTALL"
 echo "PATH=$PATH"
+echo "PYTHONPATH=$PYTHONPATH"
 
